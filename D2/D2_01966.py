@@ -1,14 +1,17 @@
+import sys
+sys.stdin = open('input.txt', 'r')
+
 T = int(input())
 
 for tc in range(1, T+1):
     N = int(input())
     A = list(map(int, input().split()))
 
-    for i in reversed(range(N)): # i: N-1 ~ 0
-        for j in range(i): # j: 1 ~ i-1
-            if A[j] > A[j+1]:
-                A[j], A[j+1] = A[j+1], A[j]
+    for i in range(N):
+        min_idx = i
+        for j in range(i+1, N):
+            if A[min_idx] > A[j]:
+                min_idx = j
+        A[i], A[min_idx] = A[min_idx], A[i]
 
-
-    print(f'#{tc}', end=' ')
-    print(*A)
+    print(f'#{tc}', *A)
