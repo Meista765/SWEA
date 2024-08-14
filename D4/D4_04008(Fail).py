@@ -18,9 +18,9 @@ def DFS(k:int, op_lst:str) -> None:
             elif op_lst[i] == '/':
                 tmp_sum //= numbers[i+1]
                 # if tmp_sum < 0:
-                #     tmp_sum = (tmp_sum // numbers[i+1]) + 1
+                    # tmp_sum = (tmp_sum // numbers[i+1]) + 1
                 # else:
-                #     tmp_sum = (tmp_sum // numbers[i+1])
+                    # tmp_sum = (tmp_sum // numbers[i+1])
         
         min_sum = min(min_sum, tmp_sum)
         max_sum = max(max_sum, tmp_sum)
