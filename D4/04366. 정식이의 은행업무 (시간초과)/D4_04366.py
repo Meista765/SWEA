@@ -1,5 +1,6 @@
 import sys; sys.stdin = open('input_04366.txt')
 
+# 10진수를 N진수로 변경하는 함수
 def toBaseN(num, base):
     result = ''
     while num:
@@ -8,6 +9,7 @@ def toBaseN(num, base):
 
     return int(result[::-1])
 
+# N진수인 두 수 사이의
 def diffCheck(num1, num2):
     if num1 == num2:
         return False
