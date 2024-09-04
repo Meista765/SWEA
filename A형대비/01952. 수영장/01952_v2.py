@@ -1,6 +1,6 @@
 import sys; sys.stdin = open('./01952. 수영장/input.txt')
 
-def find_candidates(k = 1, start = 0):
+def find_candidates(cur_sum, k = 1, start = 0):
     if k == 4:
         return
     else:
@@ -9,14 +9,15 @@ def find_candidates(k = 1, start = 0):
             if not visited[i] and not visited[i+1] and not visited[i+2]:
                 visited[i] = visited[i+1] = visited[i+2] = 1
                 
-                # 계산 후 후보군에 저장
-                tmp_sum = k * prices[Q] + sum(plan[idx] for idx in range(12) if not visited[idx])
-                candidates.add(tmp_sum)
-                
-                # 다음 탐색(인덱스는 + 3)
-                find_candidates(k + 1, i + 3)
-                
-                visited[i] = visited[i+1] = visited[i+2] = 0
+                # 가지치기: 새로 구한 합계가 기존 합계보다 커지면(악화되면) 해당 노드 탐색을 중단한다.
+                new_sum = cur_sum - plan[i] - plan[i+1] - plan[i+2] + prices[Q]
+                if new_sum > cur_sum:
+                    visited[i] = visited[i+1] = visited[i+2] = 0
+                else:
+                    candidates.add(new_sum)
+                    # 다음 탐색(인덱스는 + 3)
+                    find_candidates(new_sum, k + 1, i + 3)
+                    visited[i] = visited[i+1] = visited[i+2] = 0
 
 T = int(input())
 
@@ -44,7 +45,7 @@ for tc in range(1, T+1):
     
     # 4. 분기권으로 가렸을 때 이득인 구간을 가린 값
     visited = [0] * 12
-    find_candidates()
+    find_candidates(sum(plan))
     
     # # 디버그용
     # print('plan: ', *plan)
