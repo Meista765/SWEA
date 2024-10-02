@@ -1,4 +1,4 @@
-import sys; sys.stdin = open('./01952. 수영장/input.txt')
+import sys; sys.stdin = open('./input.txt')
 
 def find_candidates(cur_sum, k = 1, start = 0):
     if k == 4:
